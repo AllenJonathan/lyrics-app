@@ -1,0 +1,19 @@
+{
+  "name": "lyrics_app",
+  "version": "1.0.0",
+  "description": "A app to display lyrics from 3rd party APIs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "disconnect": "^1.2.2",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0"
+  }
+}
