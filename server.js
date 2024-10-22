@@ -3,8 +3,7 @@ const f = require('./functions');
 const axios = require('axios');
 
 const app = express();  
-const port = 5000;  
-const searchLimit = 20;
+const port = process.env.DEV_PORT;
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -13,7 +12,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 var clientId = '80b5f63a30934493b67d3b1ed57fed65';
-var clientSecret = '265ba65189b9410aa41082e4e423ed81';
+var clientSecret = process.env.SPOTIFY_SECRET_KEY;
 
 var accessToken;
 f.getAccessToken(clientId, clientSecret).then(res => accessToken = res.data.access_token);
@@ -62,9 +61,11 @@ app.get('/lyrics/:song', function(req, res) {
     songName = req.params.song;
     googleQuery = `${songName}%20lyrics`;
 
-    f.scrapeSite(googleQuery).then(result => {
-        console.log(result);
+    f.scrapeGoogle(googleQuery).then(result => {
+        geniusLink = result;
     }).catch(err => console.log(err))
+
+    f.
 
 });
 
