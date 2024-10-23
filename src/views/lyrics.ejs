@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Lyrics</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Load your custom JS file -->
+    <script src="/js/scroll.js" defer></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/"><div class="navbar-brand montserrat-brand">LedLyrics</div></a>
+        <form class="search-form" action="/search" method="GET">
+            <input type="text" name="q" class="search-input montserrat-light" placeholder="Search for lyrics..." required>
+            <input type="submit" value="Search Lyrics" class="search-btn montserrat-placeholder">
+        </form>
+    </nav>
+
+    <div class="lyrics-container-wrapper">
+        <!-- Song Info Section -->
+        <div class="song-header">
+            <div class="song-details">
+                <h1 class="montserrat-title"><%= title %></h1>
+                <p class="montserrat-light">by <%= artists %></p>
+                <div class="slider-container">
+                    <input type="range" id="scrollSpeed" min="1" max="2" step="0.01" value="1">
+                    <div class="font-size-controls">
+                        <button id="increaseFont" class="montserrat-placeholder">+</button>
+                        <button id="decreaseFont" class="montserrat-placeholder">-</button>
+                    </div>
+                </div>
+            </div>
+            <div class="song-thumbnail">
+                <img src="<%= albumCover %>" alt="<%= title %> thumbnail" class="thumbnail-large">
+            </div>
+        </div>
+
+        <!-- Lyrics Section -->
+        <div class="lyrics-container">
+            <pre class="lyrics-text montserrat-placeholder"><%= lyrics %></pre>
+        </div>
+    </div>
+
+    <!-- Control buttons for auto scroll -->
+    <div class="control-buttons">
+        <button class="montserrat-placeholder" id="startBtn" style="display: inline;">Start</button>
+        <button class="montserrat-placeholder" id="stopBtn" style="display: none;">Stop</button>
+    </div>
+
+    <script>
+        // Access the functions from scroll.js
+        $(document).ready(function () {
+        // Font size controls
+        $('#increaseFont').on('click', function () {
+            fontSize += 0.1; // Increase font size
+            updateFontSize(fontSize);
+        });
+
+        $('#decreaseFont').on('click', function () {
+            fontSize = Math.max(0.1, fontSize - 0.1); // Decrease font size, ensuring it doesn't go below 0.1
+            updateFontSize(fontSize);
+        });
+
+        // Existing code for scrolling
+        const { startAutoScroll, stopAutoScroll, updateScrollSpeed } = window;
+
+        $('#scrollSpeed').on('input', function () {
+            updateScrollSpeed($(this).val());
+        });
+
+        $('#startBtn').on('click', function () {
+            startAutoScroll();
+            $('#startBtn').hide();
+            $('#stopBtn').show();
+        });
+
+        $('#stopBtn').on('click', function () {
+            stopAutoScroll();
+            $('#startBtn').show();
+            $('#stopBtn').hide();
+        });
+    });
+    </script>
+    
+</body>
+</html>

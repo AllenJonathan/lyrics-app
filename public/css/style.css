@@ -50,7 +50,7 @@ body, html {
     padding: 15px;
     border: 1px solid #dfe1e5;
     border-radius: 25px;
-    font-size: 16px;
+    font-size: 14px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 }
@@ -61,7 +61,7 @@ body, html {
 }
 
 .search-input:focus {
-    border-color: #283df5; /* Customize color for ledlyrics branding */
+    border-color: #15ca5a; /* Customize color for ledlyrics branding */
     border-width: 5px;
     box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
     outline: none;
@@ -186,3 +186,149 @@ ul {
     transform: scale(1.03);
     transition: transform 0.2s ease-in-out;
 }
+
+.lyrics-container-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 100px auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* Song Info Section */
+.song-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.song-details {
+    flex: 1;
+}
+
+.song-details h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #e0ffdf;
+    margin: 0;
+    text-align: left;
+}
+
+.song-details p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #e0ffdf;
+    margin: 5px 0 0;
+    text-align: left;
+}
+
+.song-thumbnail {
+    margin-left: 20px;
+}
+
+.thumbnail-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Lyrics Section */
+.lyrics-container {
+    width: 100%;
+    background-color: #1a492e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.lyrics-text {
+    white-space: pre-wrap;
+    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-weight: 400;
+    text-align: left;
+}
+
+.lyrics-container-wrapper {
+    padding-bottom: 100px; /* Prevent content overlapping with control buttons */
+}
+
+/* Control buttons */
+.control-buttons {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1000; /* Make sure it's above other content */
+}
+
+.control-buttons button {    
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    transition: background-color 0.2s ease;
+}
+
+/* Green for the Start button */
+#startBtn {
+    background-color: #15ca5a;
+}
+
+#startBtn:hover {
+    background-color: #13b150;
+}
+
+/* Red for the Stop button */
+#stopBtn {
+    background-color: #e63946;
+}
+
+#stopBtn:hover {
+    background-color: #d62828;
+}
+
+/* Slider container */
+.slider-container {
+    margin-top: 20px;
+}
+
+.font-size-controls {
+    display: flex; /* Enable flexbox for the container */
+    align-items: center; /* Center items vertically */
+    margin-top: 10px; /* Space above the controls */
+}
+
+.font-size-controls button {
+    background-color: #15ca5a; /* Green background color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Round buttons */
+    width: 30px; /* Fixed width */
+    height: 30px; /* Fixed height */
+    font-size: 24px; /* Font size for the text */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 5px; /* Space between buttons */
+    transition: background-color 0.2s ease-in-out; /* Smooth background color change */
+    display: flex; /* Enable flexbox for buttons */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    padding: 0; /* Remove default padding */
+    line-height: 1; /* Set line-height to 1 to better center text */
+}
+
+.font-size-controls button:hover {
+    background-color: #0fae4e; /* Darker green on hover */
+}
+

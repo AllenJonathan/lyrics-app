@@ -43,30 +43,41 @@ async function scrapeGoogle(keyword) {
     }
 
     geniusText = "https://genius.com/" + geniusText.split(" › ")[1]
-
     return geniusText
 
 }
 
-async function scrapeGenius(keyword) {
-    const url = `https://www.google.com/search?gl=us&q=${keyword}`;
+async function scrapeGenius(url) {
     const { data } = await axios.get(url);
 
     const $ = cheerio.load(data);
-    var links = $('a');
-    for (var i = 0; i < links.length; i++) {
-        value = links[i]
-        hrefText = $(value).attr("href");
-        if (hrefText && hrefText.startsWith("/url?q=https://genius.com/")) {
-            var geniusText = $(value).text();
-            break;
+
+    var lyrics = "";
+
+    var divArr = $('[data-lyrics-container=true]').contents().toString().split("<br>");
+    divArr.forEach(line => {
+        if (line === " ") {
+            lyrics = lyrics.concat("\n");
+        } else {
+            lyrics = lyrics.concat(line+"\n");
         }
+    });
+
+    lyrics = lyrics.replace(/<\/?[^>]+(>|$)/g, "").trim();
+
+    // insert newlines and missing places
+    let i = 0;
+    while (i < lyrics.length) {
+        if (i > 1 && lyrics[i] == '[') {
+            if (!(lyrics[i-1] == '\n' && lyrics[i-2] == '\n')) {
+                lyrics = lyrics.slice(0,i) + '\n' + lyrics.slice(i);
+            }
+        } 
+        i++;
     }
 
-    geniusText = "https://genius.com/" + geniusText.split(" › ")[1]
-
-    return geniusText
+    return lyrics
 
 }
 
-module.exports = { getAccessToken, scrapeGoogle }
+module.exports = { getAccessToken, scrapeGoogle, scrapeGenius }

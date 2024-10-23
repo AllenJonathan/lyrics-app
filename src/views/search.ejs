@@ -12,7 +12,7 @@
     <nav class="navbar">
         <a href="/"><div class="navbar-brand montserrat-brand">LedLyrics</div></a>
         <form class="search-form" action="/search" method="GET">
-            <input montserrat-titletype="text" name="q" class="search-input montserrat-light" placeholder="Stairway to Hea..." required>
+            <input type="text" name="q" class="search-input montserrat-light" placeholder="Stairway to Hea..." required>
             <input type="submit" value="Search Lyrics" class="search-btn montserrat-placeholder">
         </form>
     </nav>
@@ -39,7 +39,7 @@
                             <% artistStr = artistStr.concat(artist.name + ", ") %>
                         <% }); %>
                         <% artistStr = artistStr.substring(0, artistStr.length - 2); %>
-                        <a href="/lyrics/<%= song.name %> <%= artistStr %>" style="text-decoration:none;">
+                        <a href="/lyrics/<%= song.name %> <%= artistStr %>?title=<%= song.name %>&artists=<%= artistStr %>&imageURL=<%= song.album.images[1].url %>" style="text-decoration:none;">
                             <li class="result-item">
                                 <div class="single-container">
                                     <!-- Thumbnail Image -->
