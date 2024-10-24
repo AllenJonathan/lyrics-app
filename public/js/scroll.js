@@ -21,7 +21,7 @@ function startAutoScroll() {
                 // Optionally, scroll back to the top or reset to the starting position
                 // $(window).scrollTop(0); // Uncomment this line to reset to the top
             }
-        }, 100); // Adjusted for smooth scrolling
+        }, 120); // Adjusted for smooth scrolling
     }
 }
 
