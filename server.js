@@ -64,7 +64,7 @@ app.get('/lyrics/:song', function(req, res) {
     songTitle = req.query.title;
     songArtists = req.query.artists;
     imageURL = req.query.imageURL;
-    googleQuery = `${songName}%20lyrics`;
+    googleQuery = `${songName}%20genius%20lyrics`;
 
     f.scrapeGoogle(googleQuery).then(result => {
         var geniusLink = result;
