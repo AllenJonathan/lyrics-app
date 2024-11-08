@@ -37,12 +37,12 @@ async function scrapeGoogle(keyword) {
         value = links[i]
         hrefText = $(value).attr("href");
         if (hrefText && hrefText.startsWith("/url?q=https://genius.com/")) {
-            var geniusText = $(value).text();
+            const match = hrefText.match(/http[^&]*/);
+            var geniusText = match ? match[0] : null;
             break;
         }
     }
 
-    geniusText = "https://genius.com/" + geniusText.split(" › ")[1]
     return geniusText
 
 }
