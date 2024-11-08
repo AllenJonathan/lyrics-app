@@ -1,32 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-async function getAccessToken(clientId, clientSecret) {
-
-    var url = 'https://accounts.spotify.com/api/token';
-
-    const config = {
-        headers: {
-            'Authorization': 'Basic ' + (new Buffer.from(clientId + ':' + clientSecret).toString('base64')),
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    }
-
-    const options = {
-        grant_type: 'client_credentials',
-        json: true
-    }
-
-    try {
-        let res = await axios.post(url, options, config)
-        return res;
-    }
-    catch (error) {
-        console.log(error);
-    }
-
-}
-
 async function scrapeGoogle(keyword) {
     const url = `https://www.google.com/search?gl=us&q=${keyword}`;
     const { data } = await axios.get(url);
@@ -80,4 +54,4 @@ async function scrapeGenius(url) {
 
 }
 
-module.exports = { getAccessToken, scrapeGoogle, scrapeGenius }
+module.exports = { scrapeGoogle, scrapeGenius }

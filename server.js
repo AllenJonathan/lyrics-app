@@ -1,10 +1,11 @@
 const express = require('express'); 
 const f = require('./functions');
 const axios = require('axios');
+const qs = require('qs');
 require('dotenv').config();
 
 const app = express();  
-const port = process.env.DEV_PORT;
+const port = process.env.DEV_PORT || 5000;
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -12,12 +13,31 @@ app.use(express.static(__dirname + '/public'));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-var clientId = '80b5f63a30934493b67d3b1ed57fed65';
+var clientId = process.env.SPOTIFY_CLIENT_ID;
 var clientSecret = process.env.SPOTIFY_SECRET_KEY;
-console.log(clientSecret)
+const auth_token = Buffer.from(`${clientId}:${clientSecret}`, 'utf-8').toString('base64');
+console.log(auth_token)
 
-var accessToken;
-f.getAccessToken(clientId, clientSecret).then(res => accessToken = res.data.access_token);
+const getAuth = async () => {
+    try {
+        //make post request to SPOTIFY API for access token, sending relavent info
+        const token_url = 'https://accounts.spotify.com/api/token';
+        const data = qs.stringify({'grant_type':'client_credentials'});
+    
+        const response = await axios.post(token_url, data, {
+            headers: { 
+            'Authorization': `Basic ${auth_token}`,
+            'Content-Type': 'application/x-www-form-urlencoded' 
+        }
+      })
+        //return access token
+        return response.data.access_token;
+        //console.log(response.data.access_token);   
+    } catch(error) {
+        //on fail, log the error in console
+        console.log(error);
+    }
+}
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/src/views/index.html');
@@ -25,6 +45,8 @@ app.get('/', (req, res) => {
 
 // Search route
 app.get('/search', async (req, res) => {
+
+    const accessToken = await getAuth();
     
     const searchQuery = req.query.q;  // Get the query string from the request
     console.log(`Search query: ${searchQuery}`);
@@ -33,7 +55,7 @@ app.get('/search', async (req, res) => {
         method: 'GET',
         url: 'https://api.spotify.com/v1/search',
         headers: {
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
         },
         params: {
             q: searchQuery,
