@@ -19,7 +19,7 @@ console.log(auth_token)
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/src/views/index.html');
+    res.render(__dirname + '/src/views/index.ejs');
 })
 
 // Search route
@@ -66,7 +66,7 @@ app.get('/lyrics/:song', function(req, res) {
     songArtists = req.query.artists;
     imageURL = req.query.imageURL;
     googleQuery = `${songName}%20genius%20lyrics`;
-
+    
     f.scrapeGoogle(googleQuery).then(result => {
         var geniusLink = result;
         console.log(geniusLink);
@@ -84,4 +84,3 @@ app.get('/lyrics/:song', function(req, res) {
     }).catch(err => console.log(err))
 
 });
-

@@ -24,9 +24,8 @@ const getAuth = async (auth_token) => {
 }
 
 async function scrapeGoogle(keyword) {
-    const url = `https://www.google.com/search?gl=us&q=${keyword}`;
+    const url = `https://www.google.com/search?gl=us&q=${keyword}-lyrics`;
     const { data } = await axios.get(url);
-
     const $ = cheerio.load(data);
     var links = $('a');
     for (var i = 0; i < links.length; i++) {
@@ -44,6 +43,9 @@ async function scrapeGoogle(keyword) {
 }
 
 async function scrapeGenius(url) {
+    if (!url) {
+        return "Lyrics not available"
+    }
     const { data } = await axios.get(url);
 
     const $ = cheerio.load(data);
